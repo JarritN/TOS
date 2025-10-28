@@ -31,7 +31,7 @@ const categories = ['emf','rad','easel','uv','thermal'];
       document.getElementById('summary').style.display = 'none';
     }
 
-    // 🎨 Farbverwaltung
+    // Farbverwaltung
     function applyColors(){
       const bg = localStorage.getItem('bgColor') || '#0a0f1a';
       const text = localStorage.getItem('textColor') || '#e2e8f0';
@@ -95,20 +95,31 @@ const categories = ['emf','rad','easel','uv','thermal'];
         applyColors();
     });
 
-// Dynamischer Sternenhintergrund
+// Stabiler, mobiler Sternenhintergrund
 const canvas = document.getElementById('stars');
-const ctx = canvas.getContext('2d');
+const ctx = canvas.getContext('2d', { alpha: true });
 
 let stars = [];
-const numStars = 2000; // Anzahl der Sterne
-let width = window.innerWidth;
-let height = window.innerHeight;
+const numStars = 180;
+let width, height;
+let scrollOffset = 0;
+let targetOffset = 0;
+
+function getViewportSize() {
+  const vp = window.visualViewport;
+  return {
+    width: vp ? vp.width : window.innerWidth,
+    height: vp ? vp.height : window.innerHeight
+  };
+}
 
 function resizeCanvas() {
-  width = window.innerWidth;
-  height = window.innerHeight;
-  canvas.width = width;
-  canvas.height = height;
+  const { width: w, height: h } = getViewportSize();
+  width = w;
+  height = h;
+  canvas.width = width * window.devicePixelRatio;
+  canvas.height = height * window.devicePixelRatio;
+  ctx.scale(window.devicePixelRatio, window.devicePixelRatio);
   generateStars();
 }
 
@@ -118,39 +129,37 @@ function generateStars() {
     stars.push({
       x: Math.random() * width,
       y: Math.random() * height,
-      radius: Math.random() * 1.5,
-      alpha: Math.random() * 0.8 + 0.2, // Helligkeit
-      speed: -Math.random() * 0.2 + 0.05 // Scroll-Geschwindigkeit
+      r: Math.random() * 1.3 + 0.2,
+      alpha: Math.random() * 0.8 + 0.2,
+      depth: Math.random() * 0.4 + 0.1 // beeinflusst Parallax
     });
   }
 }
 
-function drawStars(scrollY = 0) {
+function drawStars() {
   ctx.clearRect(0, 0, width, height);
-  ctx.fillStyle = '#fff';
-  for (let star of stars) {
-    const offsetY = (scrollY * star.speed) % height;
-    let y = star.y + offsetY;
-    if (y > height) y -= height;
-    ctx.globalAlpha = star.alpha;
+  for (let s of stars) {
+    const y = (s.y + scrollOffset * s.depth) % height;
+    const yy = y < 0 ? y + height : y;
+    ctx.globalAlpha = s.alpha;
     ctx.beginPath();
-    ctx.arc(star.x, y, star.radius, 0, Math.PI * 2);
+    ctx.arc(s.x, yy, s.r, 0, Math.PI * 2);
+    ctx.fillStyle = '#fff';
     ctx.fill();
   }
   ctx.globalAlpha = 1;
 }
 
-window.addEventListener('resize', resizeCanvas);
-
-let lastScroll = 0;
-window.addEventListener('scroll', () => {
-  lastScroll = window.scrollY;
-});
-
 function animate() {
-  drawStars(lastScroll);
+  scrollOffset += (targetOffset - scrollOffset) * 0.08;
+  drawStars();
   requestAnimationFrame(animate);
 }
+
+window.addEventListener('resize', resizeCanvas);
+window.addEventListener('scroll', () => {
+  targetOffset = window.scrollY;
+}, { passive: true });
 
 // Initialisierung
 resizeCanvas();
