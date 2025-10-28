@@ -95,28 +95,18 @@ const categories = ['emf','rad','easel','uv','thermal'];
         applyColors();
     });
 
-// Dynamischer Sternenhintergrund (mobil-freundlich)
+// Dynamischer Sternenhintergrund
 const canvas = document.getElementById('stars');
 const ctx = canvas.getContext('2d');
 
 let stars = [];
-const numStars = 200;
-let width, height;
-let scrollOffset = 0;
-let targetOffset = 0;
-
-function getViewportSize() {
-  // Liefert immer die sichtbare Bildschirmgröße (auch auf iOS korrekt)
-  return {
-    width: document.documentElement.clientWidth,
-    height: document.documentElement.clientHeight
-  };
-}
+const numStars = 2000; // Anzahl der Sterne
+let width = window.innerWidth;
+let height = window.innerHeight;
 
 function resizeCanvas() {
-  const size = getViewportSize();
-  width = size.width;
-  height = size.height;
+  width = window.innerWidth;
+  height = window.innerHeight;
   canvas.width = width;
   canvas.height = height;
   generateStars();
@@ -128,20 +118,20 @@ function generateStars() {
     stars.push({
       x: Math.random() * width,
       y: Math.random() * height,
-      radius: Math.random() * 1.5 + 0.2,
-      alpha: Math.random() * 0.8 + 0.2,
-      speed: Math.random() * 0.2 + 0.05
+      radius: Math.random() * 1.5,
+      alpha: Math.random() * 0.8 + 0.2, // Helligkeit
+      speed: -Math.random() * 0.2 + 0.05 // Scroll-Geschwindigkeit
     });
   }
 }
 
-function drawStars() {
+function drawStars(scrollY = 0) {
   ctx.clearRect(0, 0, width, height);
   ctx.fillStyle = '#fff';
-
   for (let star of stars) {
-    let y = (star.y + scrollOffset * star.speed) % height;
-    if (y < 0) y += height;
+    const offsetY = (scrollY * star.speed) % height;
+    let y = star.y + offsetY;
+    if (y > height) y -= height;
     ctx.globalAlpha = star.alpha;
     ctx.beginPath();
     ctx.arc(star.x, y, star.radius, 0, Math.PI * 2);
@@ -150,17 +140,17 @@ function drawStars() {
   ctx.globalAlpha = 1;
 }
 
+window.addEventListener('resize', resizeCanvas);
+
+let lastScroll = 0;
+window.addEventListener('scroll', () => {
+  lastScroll = window.scrollY;
+});
+
 function animate() {
-  // Parallax-Effekt sanft interpolieren (verhindert „Springen“)
-  scrollOffset += (targetOffset - scrollOffset) * 0.1;
-  drawStars();
+  drawStars(lastScroll);
   requestAnimationFrame(animate);
 }
-
-window.addEventListener('resize', resizeCanvas);
-window.addEventListener('scroll', () => {
-  targetOffset = window.scrollY;
-});
 
 // Initialisierung
 resizeCanvas();
