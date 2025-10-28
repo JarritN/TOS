@@ -72,4 +72,25 @@ const categories = ['emf','rad','easel','uv','thermal'];
             if(el && localStorage.getItem(id)) el.value = localStorage.getItem(id);
         });
         applyColors();
+
+    });
+
+    // Farben auf Standard zurücksetzen
+    document.getElementById('resetColors')?.addEventListener('click', () => {
+        // Standardwerte definieren
+        const defaults = {
+            bgColor: '#0a0f1a',
+            textColor: '#e2e8f0',
+            accentColor: '#7c3aed'
+        };
+
+        // LocalStorage zurücksetzen
+        Object.entries(defaults).forEach(([key, value]) => {
+            localStorage.setItem(key, value);
+            const el = document.getElementById(key);
+            if (el) el.value = value;
+        });
+
+        // Farben anwenden
+        applyColors();
     });
