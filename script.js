@@ -131,7 +131,7 @@ function generateStars() {
       y: Math.random() * height,
       r: Math.random() * 1.3 + 0.2,
       alpha: Math.random() * 0.8 + 0.2,
-      depth: Math.random() * 0.4 + 0.1 // beeinflusst Parallax
+      depth: -Math.random() * 0.4 + 0.1 // beeinflusst Parallax
     });
   }
 }
@@ -164,3 +164,4 @@ window.addEventListener('scroll', () => {
 // Initialisierung
 resizeCanvas();
 animate();
+
