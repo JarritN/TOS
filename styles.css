@@ -1,10 +1,30 @@
-body{
-    margin:0;
-    font-family:Inter,system-ui;
-    background:#0a0f1a;
-    color:#e2e8f0;
-    padding:16px;
-    transition:background 0.3s,color 0.3s;
+body {
+  background-color: #0a0f1a;
+  overflow: hidden;
+}
+
+.stars {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image:
+    radial-gradient(1px 1px at 20% 30%, white, transparent),
+    radial-gradient(2px 2px at 70% 80%, white, transparent),
+    radial-gradient(1px 1px at 50% 50%, white, transparent),
+    radial-gradient(3px 3px at 90% 20%, white, transparent),
+    radial-gradient(1px 1px at 10% 70%, white, transparent);
+  background-repeat: repeat;
+  background-size: 200px 200px;
+  animation: twinkle 5s infinite alternate;
+  opacity: 0.7;
+}
+
+@keyframes twinkle {
+  0% { opacity: 0.6; }
+  50% { opacity: 1; }
+  100% { opacity: 0.5; }
 }
 
 h1{
@@ -133,4 +153,5 @@ button:hover{
     border:none;
     cursor:pointer;
     box-shadow:0 0 10px rgba(0,0,0,0.3);
+
 }
