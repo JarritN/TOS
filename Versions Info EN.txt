@@ -1,0 +1,7 @@
+Version 1.0
+- Assistance for the game “The Other Side” for “Cleanse” mode
+	- The in-game mobile phone for collecting evidence has been recreated
+- Categories as a checklist and relevant hints
+- Simple overview of the results
+- Colors can be customized
+- Animated background with 3 layers
