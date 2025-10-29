@@ -9,3 +9,4 @@ Version 1.0.0
 Version 1.0.1
 - Consistent use of symbols in hints (the “-” sign replaced by “to”)
 - Consistent spacing for checkboxes
+- Added version number at bottom left
