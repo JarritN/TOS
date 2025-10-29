@@ -1,4 +1,4 @@
-const categories = ['emf','rad','easel','uv','thermal'];
+const categories = ['emf','thermal','radiation','uv','audio','writing'];
 
     function uncheckOthers(name, current){
       document.querySelectorAll(`input[name="${name}"]`).forEach(cb => {
@@ -92,4 +92,5 @@ const categories = ['emf','rad','easel','uv','thermal'];
 
         // Farben anwenden
         applyColors();
+
     });
