@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <link rel="stylesheet" href="styles.css">
+  <script src="script.js" defer></script>
+  <title>The Other Side – Beweishelfer</title>
+</head>
+<body>
+  <div class="stars layer1"></div>
+  <div class="stars layer2"></div>
+  <div class="stars layer3"></div>
+
+  <h1>The Other Side – Beweishelfer</h1>
+
+  <div id="form">
+    <div class="category" data-cat="EMF">
+      <h2>EMF</h2>
+      <label>1 <input type="checkbox" name="emf" value="1">Weak Anomalies<span class="hint">RANGE: 1.5 to 2.49 mG</span></label>
+      <label>2 <input type="checkbox" name="emf" value="2">Moderate Disturbances<span class="hint">RANGE: 2.5 to 9.99 mG</span></label>
+      <label>3 <input type="checkbox" name="emf" value="3">Strong Emissions<span class="hint">RANGE: 10 to 19.99 mG</span></label>
+      <label>4 <input type="checkbox" name="emf" value="4">Extreme Fields<span class="hint">RANGE: 20 to 40 mG</span></label>
+    </div>
+
+    <div class="category" data-cat="Thermal">
+      <h2>Thermal</h2>
+      <label>1 <input type="checkbox" name="thermal" value="1">Mild<span class="hint">RANGE: 0.1°C to 4.4°C</span></label>
+      <label>2 <input type="checkbox" name="thermal" value="2">Moderate<span class="hint">RANGE: -9.9°C to 0°C</span></label>
+      <label>3 <input type="checkbox" name="thermal" value="3">Significant<span class="hint">RANGE: -13.7°C to -10°C</span></label>
+      <label>4 <input type="checkbox" name="thermal" value="4">Frigid<span class="hint">RANGE: -20.5°C to -13.8°C</span></label>
+    </div>
+
+    <div class="category" data-cat="Radiation">
+      <h2>Radiation</h2>
+      <label>1 <input type="checkbox" name="rad" value="1">Minimal<span class="hint">RANGE: 100 to 500</span></label>
+      <label>2 <input type="checkbox" name="rad" value="2">Moderate<span class="hint">RANGE: 501 to 1000</span></label>
+      <label>3 <input type="checkbox" name="rad" value="3">Intense<span class="hint">RANGE: 1001 to 2000</span></label>
+    </div>
+
+    <div class="category" data-cat="UV">
+      <h2>UV</h2>
+      <label>1 <input type="checkbox" name="uv" value="1">Faint Traces<span class="hint">Small spots or faint traces</span></label>
+      <label>2 <input type="checkbox" name="uv" value="2">Moderate Residues<span class="hint">Clear marks or drop patterns</span></label>
+      <label>3 <input type="checkbox" name="uv" value="3">Easily Identifiable Patterns<span class="hint">Fingerprint or Handprint</span></label>
+    </div>
+
+    <div class="category" data-cat="Audio">
+      <h2>Audio</h2>
+      <label>1 <input type="checkbox" name="audio" value="1">Unintelligible Sounds<span class="hint">Noises, not understandable speech</span></label>
+      <label>2 <input type="checkbox" name="audio" value="2">Single Word Responses<span class="hint">Say individual words, also repeatedly</span></label>
+      <label>3 <input type="checkbox" name="audio" value="3">Intelligible Phrases<span class="hint">Speak in complete sentences</span></label>
+    </div>
+    <div class="category" data-cat="Easel">
+      <h2>Easel</h2>
+      <label>1 <input type="checkbox" name="easel" value="1">Incomprehensible Scribbling<span class="hint">Drawings or lines without a clear structure</span></label>
+      <label>2 <input type="checkbox" name="easel" value="2">Symbolic Enigmas<span class="hint">Circles, triangles, or mysterious symbols</span></label>
+      <label>3 <input type="checkbox" name="easel" value="3">Hostile Manifestations<span class="hint">Readable words or messages</span></label>
+    </div>
+  </div>
+
+  <div class="buttons">
+    <button onclick="resetForm()">Reset</button>
+    <button onclick="showSummary()">Zusammenfassung anzeigen</button>
+  </div>
+
+  <div id="summary" class="summary" style="display:none;"></div>
+
+  <div id="Version">Version 1.0</div>
+
+  <!-- Farbpanel -->
+  <button class="color-btn" onclick="togglePanel()">Farben</button>
+  <div id="colorPanel" class="color-panel" style="display:none;">
+    <h3>Farben anpassen</h3>
+    <label>Hintergrund: <input type="color" id="bgColor"></label>
+    <label>Text: <input type="color" id="textColor"></label>
+    <label>Akzent: <input type="color" id="accentColor"></label>
+    <button id="resetColors">Standardfarben wiederherstellen</button>
+    <button onclick="togglePanel()">Schließen</button>
+  </div>
+</body>
+</html>
