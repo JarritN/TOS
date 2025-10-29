@@ -9,3 +9,4 @@ Version 1.0.0
 Version 1.0.1
 - Einheitliche Symbolenutzung bei den Hinweisen ( das Bis zeichen - zu to ersetzt)
 - Einheitliche Abstände bei Checkboxen
+- Versionsnummer unten links hinzugefügt
